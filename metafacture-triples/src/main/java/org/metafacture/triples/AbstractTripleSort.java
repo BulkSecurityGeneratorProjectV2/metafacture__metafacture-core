@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -127,7 +128,7 @@ public abstract class AbstractTripleSort extends DefaultObjectPipe<Triple, Objec
 
     private void nextBatch() throws IOException {
         Collections.sort(buffer, createComparator());
-        final File tempFile = File.createTempFile("sort", "namedValues", null);
+        final File tempFile = Files.createTempFile("sort", "namedValues").toFile();
         tempFile.deleteOnExit();
 
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(tempFile))) {
